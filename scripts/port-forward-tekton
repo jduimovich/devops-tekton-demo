@@ -1,0 +1,17 @@
+
+
+kubectl get pods -n $TEKTON_DEMO_NS -l app=tekton-dashboard -o name
+POD=$(kubectl get pods -n $TEKTON_DEMO_NS -l app=tekton-dashboard -o name)
+
+if [ -z $POD ]
+then
+   echo NO POD
+   exit
+else 
+   echo POD is $POD in Namespace $TEKTON_DEMO_NS
+fi
+kubectl port-forward $POD -n $TEKTON_DEMO_NS 9097:9097
+
+sleep 100
+
+

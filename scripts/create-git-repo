@@ -1,0 +1,53 @@
+verify_env () {
+name=$1
+val=${!name}
+if [ -z $val ]
+then
+echo "\n" No $1 set, please set to your token to use this script
+ERROR=1
+else 
+echo $name is set to $val
+fi
+}
+
+verify_env "MY_PUBLIC_GIT_USER"
+verify_env "MY_PUBLIC_GIT_TOKEN"
+
+if [ -z $1 ]
+then
+echo Missing paraneter repository name
+exit
+else 
+echo Creating repository https://github.com/${MY_PUBLIC_GIT_USER}/$REPO_NAME
+fi
+
+USER_PW=${MY_PUBLIC_GIT_USER}:${MY_PUBLIC_GIT_TOKEN}
+
+read -r -d '' TXT_REPO << EOM
+{
+  "name": "REPO",
+  "description": "curl created repo",
+  "homepage": "https://github.com",
+  "private": false,
+  "has_issues": true,
+  "has_projects": true,
+  "has_wiki": true
+}
+EOM
+
+REPO_NAME=$1
+REPO_UPDATE=`echo ${TXT_REPO} | sed "s/REPO/${REPO_NAME}/g"`
+REPO=`echo ${REPO_UPDATE} | jq`
+
+
+curl -u $USER_PW https://api.github.com/user/repos -d "${REPO}"
+
+cd $REPO_NAME
+
+git init
+git add .
+git commit -m "first commit"
+git remote add origin https://github.com/${MY_PUBLIC_GIT_USER}/$REPO_NAME
+git push -u origin master
+
+echo Repository URL is https://github.com/${MY_PUBLIC_GIT_USER}/$REPO_NAME

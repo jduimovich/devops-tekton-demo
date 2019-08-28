@@ -1,0 +1,8 @@
+#!/bin/bash
+script="$0"
+basename="$(dirname $script)"
+
+sh $basename/kdel-skip-p0 pipelines
+sh $basename/kdel-skip-p0 tasks
+sh $basename/kdel-util pipelineruns
+sh $basename/kdel-util pipelineresources

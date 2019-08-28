@@ -1,0 +1,29 @@
+#!/bin/bash
+script="$0"
+script_dir="$(dirname $script)"
+
+NS=$TEKTON_DEMO_NS
+P_SA=$TEKTON_DEMO_SA
+ 
+GIT_URL=$1 
+GIT_REPO_BASE=$(basename $GIT_URL .git )
+DOCKER_IMAGE=$GIT_REPO_BASE
+GIT_SRC_RES=run0-git-source-$GIT_REPO_BASE
+TAG=$(date +"h%H-m%M-s%S")
+P_REF=pipeline0
+if [ -z $2 ]
+then
+PIPE_DIR=pipelines 
+else  
+PIPE_DIR=$2 
+fi
+
+
+PIPELINE_RUN="$(mktemp)" 
+echo Running $P_REF on $GIT_URL / $PIPE_DIR using SA $P_SA in namespace $NS
+sed  "s!PRUN_NAME!pipeline-run-$TAG!;s!P_SA!$P_SA!;s!P_REF!$P_REF!;s!GIT_URL!$GIT_URL!;s!DOCKER_IMAGE!$DOCKER_IMAGE!;s!GIT_SRC_RES!$GIT_SRC_RES!;s!PIPE_DIR!$PIPE_DIR!;s!TARGET_NS!$TEKTON_DEMO_NS!" <$script_dir/p0-pipeline-run > $PIPELINE_RUN 
+kubectl apply -f $PIPELINE_RUN -n $NS
+ 
+#cat  $PIPELINE_RUN  
+
+

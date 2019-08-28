@@ -1,0 +1,16 @@
+
+if [ -f pom.xml ]
+then
+echo mvn-simple-git-build-push
+exit
+fi
+
+if [ -f package.json ]
+then
+echo simple-git-build-push
+exit
+fi
+
+
+echo tekton-demo-pipeline
+

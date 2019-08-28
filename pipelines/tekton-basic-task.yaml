@@ -1,0 +1,41 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: tekton-basic-pipeline
+spec:
+  steps:
+    - name: echo-step-1
+      image: docker.io/ubuntu
+      command:
+        - /bin/sh
+      args:
+        - -c 
+        - "echo  This is a default Tekton pipeline. Tekton is working." 
+    - name: echo-step-2
+      image: docker.io/ubuntu
+      command:
+        - /bin/sh
+      args:
+        - -c 
+        - "echo  This pipeline only runs simple ls -al on the local directory." 
+    - name: echo-step-3-ls-al
+      image: docker.io/ubuntu
+      command:
+        - /bin/sh
+      args:
+        - -c
+        - "ls -al"
+    - name: echo-step-4-pwd
+      image: docker.io/ubuntu
+      command:
+        - /bin/sh
+      args:
+        - -c
+        - "pwd"
+    - name: echo-step-5-ls-al
+      image: docker.io/ubuntu
+      command:
+        - /bin/sh
+      args:
+        - -c 
+        - "echo  Final Step in pipeline. Tekton is working." 

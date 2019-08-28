@@ -1,0 +1,37 @@
+verify_env () {
+name=$1
+val=${!name}
+if [ -z $val ]
+then
+echo "\n" No $1 set, please set to your token to use this script
+ERROR=1
+else 
+echo $name is set to $val
+fi
+}
+
+verify_env "MY_PUBLIC_GIT_USER"
+verify_env "MY_PUBLIC_GIT_TOKEN_DELETE" 
+
+REPO_NAME=$1
+if [ -z $1 ]
+then
+echo $0 Missing parameter repository name
+exit
+else 
+echo $0 Deleting repository https://github.com/${MY_PUBLIC_GIT_USER}/$REPO_NAME
+fi
+
+read -r -d '' TXT_REPO << EOM
+{
+  "name": "REPO"
+}
+EOM
+
+# if you want to see permissions -- search the header for this curl. 
+#curl -v -H "Authorization: token $MY_PUBLIC_GIT_TOKEN_DELETE" https://api.github.com
+
+curl -X DELETE -H "Authorization: token $MY_PUBLIC_GIT_TOKEN_DELETE" https://api.github.com/repos/$MY_PUBLIC_GIT_USER/$REPO_NAME
+
+
+

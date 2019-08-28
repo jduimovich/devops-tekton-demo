@@ -1,0 +1,5 @@
+#!/bin/bash
+script="$0"
+basename="$(dirname $script)"
+
+sh $basename/kdel-util pipelineresources

@@ -1,0 +1,9 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: tekton-basic-pipeline
+spec:
+  tasks:
+  - name: tekton-basic-pipeline
+    taskRef:
+      name: tekton-basic-pipeline

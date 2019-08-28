@@ -1,0 +1,30 @@
+
+#!/bin/bash
+script="$0"
+basename="$(dirname $script)"
+
+NS=$TEKTON_DEMO_NS
+P_SA=$TEKTON_DEMO_SA
+
+TAG=$(date +"h%H-m%M-s%S")
+
+PIPELINE_RESOURCE="$(mktemp)"
+  
+
+GIT_URL=$1 
+GIT_REPO_BASE=$(basename $GIT_URL .git )
+DOCKER_IMAGE=$MY_DOCKER_USER/$GIT_REPO_BASE-$TAG
+GIT_SRC_RES=webhook-git-source-$GIT_REPO_BASE
+IMAGE_REF=webhook-image-ref-$GIT_REPO_BASE
+
+
+PIPELINE_RUN="$(mktemp)"  
+P_REF=$2
+echo Running $P_REF on $GIT_URL using SA $P_SA in namespace $NS 
+sed  "s!PRUN_NAME!pipeline-run-$TAG!;s!P_SA!$P_SA!;s!P_REF!$P_REF!;s!GIT_URL!$GIT_URL!;s!DOCKER_IMAGE!$DOCKER_IMAGE!;s!GIT_SRC_RES!$GIT_SRC_RES!;s!PIPE_DIR!$PIPE_DIR!;s!TARGET_NS!$TEKTON_DEMO_NS!;s!IMAGE_REF!$IMAGE_REF!" <$basename/webhook-pipeline-run > $PIPELINE_RUN  
+
+kubectl apply -f $PIPELINE_RUN -n $NS
+
+#cat  $PIPELINE_RUN  
+
+

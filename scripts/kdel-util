@@ -1,0 +1,5 @@
+echo Deleting all $1
+kubectl get $1 -n $TEKTON_DEMO_NS --no-headers=true | cut -d ' ' -f1  | xargs  kubectl delete $1 -n $TEKTON_DEMO_NS
+
+
+
