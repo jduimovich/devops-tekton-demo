@@ -88,5 +88,9 @@ fi
 
 sh scripts/install-secret
 
+echo "-----------------------"
+echo "Tekton Demo Installed "
+echo " "
+
 echo connect to http://localhost:9097 for tekton dashboard
 
