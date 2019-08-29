@@ -18,8 +18,14 @@ fi
 
 }
 
+if [ -z $TEKTON_DEMO_NS ]
+then
 export TEKTON_DEMO_NS=tekton-pipelines
+fi
+if [ -z $TEKTON_DEMO_SA ]
+then 
 export TEKTON_DEMO_SA=tekton-dashboard
+fi
 
 verify_env "TEKTON_DEMO_NS"
 verify_env "TEKTON_DEMO_SA"
@@ -69,9 +75,21 @@ EXTEND=$RELEASES/webhooks-extension/previous/v0.1.1/release.yaml
 #DASH=$RELEASES/dashboard/latest/release.yaml
 #EXTEND=$RELEASES/webhooks-extension/latest/release.yaml
 
-kubectl apply -f $TEKTON
-kubectl apply -f $DASH 
-kubectl apply -f $EXTEND 
+YAML=$(mktemp)
+curl -s $TEKTON | \
+     sed "s/tekton-pipelines/$TEKTON_DEMO_NS/g" | \
+     sed "s/tekton-dashboard/$TEKTON_DEMO_SA/g" > $YAML
+kubectl apply -f $YAML
+
+curl -s $DASH | \
+     sed "s/tekton-pipelines/$TEKTON_DEMO_NS/g" | \
+     sed "s/tekton-dashboard/$TEKTON_DEMO_SA/g" > $YAML
+kubectl apply -f $YAML
+
+curl -s $EXTEND | \
+     sed "s/tekton-pipelines/$TEKTON_DEMO_NS/g" | \
+     sed "s/tekton-dashboard/$TEKTON_DEMO_SA/g" > $YAML
+kubectl apply -f $YAML
 
 export PATH=$PATH:$(pwd)/scripts
 
@@ -92,6 +110,8 @@ sh scripts/install-secret
 echo "-----------------------"
 echo "Tekton Demo Installed "
 echo " "
+echo "Namespace for Demo: " $TEKTON_DEMO_NS 
+echo "ServiceAccount for Demo: " $TEKTON_DEMO_SA
 
 echo connect to http://localhost:9097 for tekton dashboard
 

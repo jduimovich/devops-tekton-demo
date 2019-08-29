@@ -48,5 +48,8 @@ cd ..
 @echo Tekton Demo Installed 
 @echo Note on windows, the secrets need to be installed via the dashboard
 
+@echo "Namespace for Demo: " %TEKTON_DEMO_NS%  
+@echo "ServiceAccount for Demo: " %TEKTON_DEMO_SA%  
+
 echo connect to http://localhost:9097 for tekton dashboard
 
