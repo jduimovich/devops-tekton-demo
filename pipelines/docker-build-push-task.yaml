@@ -26,32 +26,11 @@ spec:
     env:
       - name: IMG
         value: ${outputs.resources.builtImage.url}
-  - name: build
-    image: docker
+  - name: build-push-step
+    image: gcr.io/kaniko-project/executor
     command:
-    - docker 
+      - /kaniko/executor
     args:
-    - 'build'
-    - '-f'
-    - ${inputs.params.pathToDockerFile}
-    - '-t'
-    - ${outputs.resources.builtImage.url}
-    - ${inputs.params.pathToContext}
-    volumeMounts:
-    - name: docker-socket
-      mountPath: /var/run/docker.sock
-  - name: push 
-    image: docker
-    command:
-    - docker 
-    args:
-    - 'push'
-    - ${outputs.resources.builtImage.url}
-    volumeMounts:
-    - name: docker-socket
-      mountPath: /var/run/docker.sock
-  volumes:
-    - name: docker-socket
-      hostPath:
-        path: /var/run/docker.sock
-        type: Socket
+      - --dockerfile=${inputs.params.pathToDockerFile}
+      - --destination=${outputs.resources.docker-image.url}
+      - --context=${inputs.params.pathToContext}
