@@ -13,8 +13,7 @@ IMAGE_REF=webhook-image-ref-$GIT_REPO_BASE
 
 PIPELINE_RUN="$(mktemp)"  
 P_REF=$2
-INPUT_TEMPLATE=$script_dir/webhook-pipeline-run
-
+INPUT_TEMPLATE=$script_dir/basic-pipeline-run
 echo Running $P_REF on $GIT_URL using SA $TEKTON_DEMO_SA in namespace $TEKTON_DEMO_NS 
 sed  "s!PRUN_NAME!$script_name-$TAG!;s!P_SA!$TEKTON_DEMO_SA!;s!P_REF!$P_REF!;s!GIT_URL!$GIT_URL!;s!DOCKER_IMAGE!$DOCKER_IMAGE!;s!GIT_SRC_RES!$GIT_SRC_RES!;s!PIPE_DIR!$PIPE_DIR!;s!TARGET_NS!$TEKTON_DEMO_NS!;s!IMAGE_REF!$IMAGE_REF!" <$INPUT_TEMPLATE > $PIPELINE_RUN  
 

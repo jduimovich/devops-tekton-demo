@@ -2,6 +2,4 @@
 #!/bin/bash
 script="$0"
 script_dir="$(dirname $script)"
-
-
-sh $script_dir/run-webhook-pipeline $($script_dir/git-repo-url) $($script_dir/suggest-pipeline-name)
+sh $script_dir/run-webhook-pipeline $($script_dir/git-repo-url) $($script_dir/pipeline-name-for-repo)

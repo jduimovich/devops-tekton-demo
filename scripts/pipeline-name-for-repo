@@ -11,6 +11,5 @@ echo simple-git-build-push
 exit
 fi
 
-
-echo tekton-demo-pipeline
+echo tekton-basic-pipeline
 
