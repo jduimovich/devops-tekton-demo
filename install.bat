@@ -11,8 +11,7 @@ set MY_DOCKER_PW=need-this
  
 cd scripts
 rem ISTIO 
-call install_istio.bat
-cd ..
+call install_istio.bat 
 rem TEKTON 
 call install_knative.bat
 
@@ -34,13 +33,17 @@ kubectl apply -f %DASH%
 kubectl apply -f %EXTEND%  
  
 
-call port-forward-tekton.bat 
+start "PORT FORWARD TO DASHBOARD" /MIN port-forward-tekton.bat 
+rem background no new window mode if wanted for demos
+rem /B port-forward-tekton.bat  >port-forward-tekton.log 
 
 call install-secret.bat
 
-echo "-----------------------"
-echo "Tekton Demo Installed "
-echo " "
+cd ..
+
+@echo "-----------------------"
+@echo "Tekton Demo Installed "
+@echo " "
 
 echo connect to http://localhost:9097 for tekton dashboard
 
