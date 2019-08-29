@@ -5,9 +5,8 @@ curl -L "https://github.com/istio/istio/releases/download/1.2.2/istio-1.2.2-linu
 
 tar xzf istio-1.2.2-linux.tar.gz
 
-kubectl apply -f istio-ns.yaml
-
 :HASDIR
+kubectl apply -f istio-ns.yaml
 cd istio-1.2.2
 kubectl apply -f install/kubernetes/helm/istio-init/files 
  

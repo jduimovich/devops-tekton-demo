@@ -1,4 +1,7 @@
-# hack
+
+
+@echo off 
+
  
 set TEKTON_DEMO_NS=tekton-pipelines
 set TEKTON_DEMO_SA=tekton-dashboard
@@ -41,9 +44,9 @@ call install-secret.bat
 
 cd ..
 
-@echo "-----------------------"
-@echo "Tekton Demo Installed "
-@echo " "
+@echo -----------------------
+@echo Tekton Demo Installed 
+@echo Note on windows, the secrets need to be installed via the dashboard
 
 echo connect to http://localhost:9097 for tekton dashboard
 
