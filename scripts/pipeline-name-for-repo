@@ -1,13 +1,13 @@
 
 if [ -f pom.xml ]
 then
-echo mvn-simple-git-build-push
+echo maven-docker-build-deploy
 exit
 fi
 
 if [ -f package.json ]
 then
-echo simple-git-build-push
+echo docker-build-deploy
 exit
 fi
 
