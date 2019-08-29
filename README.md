@@ -25,9 +25,9 @@ Tekton and dependencies
 
 You need to install tekton resources from https://github.com/jduimovich/devops-tekton-demo.git to get the pipelines for now.
 Automated p0 install will be coming soon.
-For manual install of pipelines
-https://github.com/jduimovich/devops-tekton-demo.git
-select tekton-pipelines namespace and pipelines as the install directory. 
+For manual install of pipelines use this git repo 
+`https://github.com/jduimovich/devops-tekton-demo.git`
+select `tekton-pipelines` namespace and `pipelines` as the install directory and the `tekton-dashboard` service account.
 
 # Dashboard
 
