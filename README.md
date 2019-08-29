@@ -2,17 +2,37 @@
 
 A basic Tekton Demo
 
-To install run 
+
+#Install 
+
+This will run install tekton and dependencies and initialize all the default pipelines in your system
+
+## OS X
+
+Tekton and dependencies 
 
 ``` sh install.sh```
 
-Install Pipelines
+Run install of pipelines via a pipeline0 run.
 
 ``` sh scripts/run-p0 ```
 
-This will run pipeine0 in your current git repo and install the demo pipeline and tasks into your cluster via a tekton pipelne run.
+## Windows 
 
-Open the dashboard and in select pipelines .
+Tekton and dependencies 
+
+```install.bat```
+
+You need to install tekton resources from https://github.com/jduimovich/devops-tekton-demo.git to get the pipelines for now.
+Automated p0 install will be coming soon.
+For manual install of pipelines
+https://github.com/jduimovich/devops-tekton-demo.git
+select tekton-pipelines namespace and pipelines as the install directory. 
+
+# Dashboard
+
+The   dashboard will be at localhost:9097  
+
 Run the pipelined named "tekton-basic-pipeline" from the UI. 
 Select the tekton-dashboard service account.
 
