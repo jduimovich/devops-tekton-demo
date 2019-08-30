@@ -1,4 +1,27 @@
 
+# a script to discover the pipeline name 
+# based on repo contents
+# this needs to be connected to the collections
+# or mapping of repos to pipelines
+
+if [ -f kabanero-pipeline-name ]
+then
+cat kabanero-pipeline-name
+exit
+fi
+
+if [ -f .kabanero-pipeline-name ]
+then
+cat .kabanero-pipeline-name
+exit
+fi
+
+if [ -f .appsody-config.yaml ]
+then
+echo appsody-build-pipeline
+exit
+fi
+
 if [ -f pom.xml ]
 then
 echo maven-docker-build-deploy
