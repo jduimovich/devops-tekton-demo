@@ -1,5 +1,0 @@
-sh ensure-dashboard-access
-sleep 2
-sh verify-secret
-open http://localhost:9097 
-
