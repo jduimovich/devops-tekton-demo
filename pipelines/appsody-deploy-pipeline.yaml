@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: appsody-deploy-pipeline
+spec:
+  resources:
+    - name: git-source
+      type: git 
+  tasks:
+    - name: appsody-deploy
+      taskRef:
+        name: appsody-deploy-task
+      resources:
+        inputs:
+        - name: git-source
+          resource: git-source
+      params:
+      - name: appsody-deploy-file-name
+        value: appsody-service.yaml

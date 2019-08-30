@@ -1,0 +1,69 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: appsody-build-task
+spec:
+  inputs:
+    resources:
+      - name: git-source
+        type: git
+    params:
+      - name: pathToDockerFile
+        default: /workspace/extracted/Dockerfile
+      - name: pathToContext
+        default: /workspace/extracted
+      - name: appsody-deploy-file-name
+  outputs:
+    resources:
+      - name: docker-image
+        type: image
+  steps:
+    - name: fix-git-src-name-mismatch
+      image: docker.io/ubuntu
+      command: ['/bin/bash'] 
+      args: ['-c', 'ln -s git-source appsody-source']
+    - name: cp-from-appsody-base
+      image: appsody/nodejs-express:0.2
+      command: ['/bin/bash'] 
+      args: ['-c', 'cp -r -v /project/ /workspace/extracted/']
+    - name: cp-from-projec-base
+      image: appsody/nodejs-express:0.2
+      command: ['/bin/bash'] 
+      args: ['-c', 'cp -r -v /workspace/git-source/. /workspace/extracted/user-app/']
+    - name: build-push-step
+      image: gcr.io/kaniko-project/executor
+      command:
+        - /kaniko/executor
+      args:
+        - --dockerfile=${inputs.params.pathToDockerFile}
+        - --destination=${outputs.resources.docker-image.url}
+        - --context=${inputs.params.pathToContext}
+    - name: modify-yaml
+      image: ubuntu
+      command: ['/bin/bash']
+      args: ['-c', 'find /workspace/appsody-source/ -name ${YAMLFILE} -type f -exec sed -i -e s!"image: .*$"!"image: ${IMG}"!g {} \;']
+      env:
+        - name: IMG
+          value: ${outputs.resources.docker-image.url}
+        - name: YAMLFILE
+          value: ${inputs.params.appsody-deploy-file-name}
+    - name: install-knative
+      image: lachlanevenson/k8s-kubectl
+      command: ['/bin/sh']
+      args: ['-c', 'find /workspace/appsody-source/ -name ${YAMLFILE} -type f|xargs kubectl apply -f']
+      env:
+        - name: YAMLFILE
+          value: ${inputs.params.appsody-deploy-file-name}
+
+    - name: pipeline-run-summary
+      image: jduimovich/summary 
+      workingDir: "/workspace/git-source/"
+      command: ['bash'] 
+      args: ['/script.sh']
+      env:
+        - name: REPO
+          value: ${inputs.resources.git-source.url}
+        - name: IMAGE
+          value: ${outputs.resources.docker-image.url}
+        - name: DEPLOY
+          value: ${inputs.params.appsody-deploy-file-name}

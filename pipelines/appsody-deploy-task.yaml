@@ -1,0 +1,40 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: appsody-deploy-task
+spec:
+  inputs:
+    resources:
+      - name: git-source
+        type: git 
+    params:  
+      - name: appsody-deploy-file-name 
+  steps:
+    - name: print-deploy-info
+      image: docker.io/ubuntu
+      command: ['/bin/bash'] 
+      args: ['-c', 'echo Deploy git repo is: ${inputs.resources.git-source.url}'] 
+
+    - name: print-deploy-yaml
+      image: docker.io/ubuntu
+      command: ['/bin/bash'] 
+      args: ['-c', 'echo Deploy Yaml is: ${inputs.params.appsody-deploy-file-name}'] 
+
+    - name: install-appsody-application
+      image: lachlanevenson/k8s-kubectl
+      command: ['/bin/sh']
+      args: ['-c', 'find /workspace/git-source/ -name ${YAMLFILE} -type f|xargs kubectl apply -f']
+      env:
+        - name: YAMLFILE
+          value: ${inputs.params.appsody-deploy-file-name}
+
+    - name: pipeline-run-summary
+      image: jduimovich/summary 
+      workingDir: "/workspace/git-source/"
+      command: ['bash'] 
+      args: ['/script.sh']
+      env:
+        - name: REPO
+          value: ${inputs.resources.git-source.url}
+        - name: DEPLOY
+          value: ${inputs.params.appsody-deploy-file-name}
