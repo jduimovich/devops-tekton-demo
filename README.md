@@ -3,9 +3,14 @@
 A basic Tekton Demo
 
 
+#Pre-Install
+
+You will need `kubectl`, `helm`, `curl` and `tar` utilities on your path .
+
 #Install 
 
 This will run install tekton and dependencies and initialize all the default pipelines in your system
+
 
 ## OS X
 
