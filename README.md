@@ -28,12 +28,16 @@ Tekton and dependencies
 
 ```install.bat```
 
-You need to install tekton resources from https://github.com/jduimovich/devops-tekton-demo.git to get the pipelines for now.
-Automated p0 install will be coming soon.
-For manual install of pipelines use this git repo 
-`https://github.com/jduimovich/devops-tekton-demo.git`
-select `tekton-pipelines` namespace and `pipelines` as the install directory and the `tekton-dashboard` service account.
 
+Run install of pipelines via a pipeline0 run.
+
+``` scripts\run-p0.bat ```
+ 
+ Run a basic pipeline 
+
+``` scripts\run-basic.bat ```
+
+For manual run of the pipelines use the dashboard
 # Dashboard
 
 The   dashboard will be at localhost:9097  
