@@ -18,7 +18,11 @@ spec:
     resources:
       - name: builtImage
         type: image
-  steps:  
+  steps:
+    - name: inventory-files
+      image: docker.io/ubuntu
+      command: ['/bin/bash'] 
+      args: ['-c', 'du -a'] 
     - name: build-push-step
       image: gcr.io/kaniko-project/executor
       command:
@@ -27,10 +31,3 @@ spec:
         - --dockerfile=${inputs.params.pathToDockerFile}
         - --destination=${outputs.resources.builtImage.url}
         - --context=${inputs.params.pathToContext}
-    - name: show-image-name
-      image: docker.io/ubuntu
-      command: ['/bin/bash'] 
-      args: ['-c', 'echo docker-build-push $IMG'] 
-      env:
-      - name: IMG
-        value: ${outputs.resources.builtImage.url}

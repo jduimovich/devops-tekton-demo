@@ -9,7 +9,7 @@ spec:
   - name: docker-image
     type: image
   tasks:
-  - name: build-simple
+  - name: build
     taskRef:
       name: docker-build-push
     resources:
@@ -19,8 +19,8 @@ spec:
       outputs:
       - name: builtImage
         resource: docker-image
-  - name: deploy-simple
-    runAfter: [build-simple]
+  - name: deploy
+    runAfter: [build]
     taskRef: 
       name: deploy-using-kubectl-task
     resources: 

@@ -50,5 +50,5 @@ spec:
       - name: IMAGE
         value: ${inputs.resources.image-out.url}
       - name: DEPLOY
-        value: "/workspace/git-source/"
+        value: "/workspace/git-source/config"
 
