@@ -13,9 +13,15 @@ IMAGE_REF=webhook-image-ref-$GIT_REPO_BASE
 
 PIPELINE_RUN="$(mktemp)"  
 P_REF=$2
+PIPE_DIR=.
 INPUT_TEMPLATE=$script_dir/webhook-pipeline-run
 
-echo Running $P_REF on $GIT_URL using SA $TEKTON_DEMO_SA in namespace $TEKTON_DEMO_NS 
+printf "%-20s %s\n"  "Pipeline Name:" $P_REF 
+printf "%-20s %s\n"  "Repository:" $GIT_URL 
+printf "%-20s %s\n"  "Directory:"  $PIPE_DIR 
+printf "%-20s %s\n"  "Service Account:" $TEKTON_DEMO_SA 
+printf "%-20s %s\n"  "Namespace:" $TEKTON_DEMO_NS 
+
 sed  "s!PRUN_NAME!$script_name-$TAG!;s!P_SA!$TEKTON_DEMO_SA!;s!P_REF!$P_REF!;s!GIT_URL!$GIT_URL!;s!DOCKER_IMAGE!$DOCKER_IMAGE!;s!GIT_SRC_RES!$GIT_SRC_RES!;s!PIPE_DIR!$PIPE_DIR!;s!TARGET_NS!$TEKTON_DEMO_NS!;s!IMAGE_REF!$IMAGE_REF!" <$INPUT_TEMPLATE > $PIPELINE_RUN  
 
 kubectl apply -f $PIPELINE_RUN -n $TEKTON_DEMO_NS
