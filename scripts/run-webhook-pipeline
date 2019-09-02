@@ -21,6 +21,7 @@ printf "%-20s %s\n"  "Repository:" $GIT_URL
 printf "%-20s %s\n"  "Directory:"  $PIPE_DIR 
 printf "%-20s %s\n"  "Service Account:" $TEKTON_DEMO_SA 
 printf "%-20s %s\n"  "Namespace:" $TEKTON_DEMO_NS 
+printf "%-20s %s\n"  "Creating Image:" $DOCKER_IMAGE 
 
 sed  "s!PRUN_NAME!$script_name-$TAG!;s!P_SA!$TEKTON_DEMO_SA!;s!P_REF!$P_REF!;s!GIT_URL!$GIT_URL!;s!DOCKER_IMAGE!$DOCKER_IMAGE!;s!GIT_SRC_RES!$GIT_SRC_RES!;s!PIPE_DIR!$PIPE_DIR!;s!TARGET_NS!$TEKTON_DEMO_NS!;s!IMAGE_REF!$IMAGE_REF!" <$INPUT_TEMPLATE > $PIPELINE_RUN  
 
