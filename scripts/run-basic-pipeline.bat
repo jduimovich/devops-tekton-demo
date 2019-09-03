@@ -18,7 +18,7 @@ For /f "tokens=1-2 delims=/_" %%a in ("%TAGXX%") do (set TAG=%%a--%%b)
  
 set GIT_URL=%1  
 FOR %%i IN ("%GIT_URL%") DO ( set GIT_REPO_BASE=%%~ni ) 
-set DOCKER_IMAGE=%MY_DOCKER_USER%/%GIT_REPO_BASE%-%TAG%
+set DOCKER_IMAGE=%MY_DOCKER_USER%/%GIT_REPO_BASE%:%TAG%
 set GIT_SRC_RES=webhook-git-source-%GIT_REPO_BASE% 
 set IMAGE_REF=webhook-image-ref-%GIT_REPO_BASE%
 set PIPELINE_RUN=pr.tmp  
