@@ -4,6 +4,18 @@
 # this needs to be connected to the collections
 # or mapping of repos to pipelines
 
+if [ -f tekton-pipeline-name ]
+then
+cat tekton-pipeline-name
+exit
+fi
+
+if [ -f .tekton-pipeline-name ]
+then
+cat .tekton-pipeline-name
+exit
+fi
+
 if [ -f kabanero-pipeline-name ]
 then
 cat kabanero-pipeline-name

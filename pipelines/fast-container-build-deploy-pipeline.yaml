@@ -11,7 +11,7 @@ spec:
   tasks:
   - name: fast-build
     taskRef:
-      name: build-push
+      name: fast-build
     resources:
       inputs:
       - name: git-source
