@@ -2,4 +2,4 @@
 #!/bin/bash
 script="$0"
 script_dir="$(dirname $script)"
-sh $script_dir/run-basic-pipeline $($script_dir/git-repo-url) $($script_dir/pipeline-name-for-repo)
+sh $script_dir/run-basic-pipeline $($script_dir/git-repo-url) tekton-basic-pipeline
