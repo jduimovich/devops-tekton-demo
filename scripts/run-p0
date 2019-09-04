@@ -10,4 +10,4 @@ echo This directory has no pipelines directory, exiting
 exit
 fi
 
-sh $script_dir/run-p0-pipeline $($script_dir/git-repo-url)
+sh $script_dir/run-p0-pipeline $($script_dir/git-repo-url) $1
