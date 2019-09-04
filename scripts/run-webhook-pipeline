@@ -29,4 +29,7 @@ kubectl apply -f $PIPELINE_RUN -n $TEKTON_DEMO_NS
 
 #cat  $PIPELINE_RUN  
 
+echo $DOCKER_IMAGE >last-built
+
+
 
