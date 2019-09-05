@@ -1,4 +1,5 @@
 @echo off
+IF EXIST tekton-pipeline-name GOTO TEKTON  
 IF EXIST pom.xml GOTO POM 
 IF EXIST package.json GOTO DOCKER 
 
@@ -10,10 +11,11 @@ echo maven-docker-build-deploy
 GOTO END 
 
 :DOCKER
-echo maven-docker-build-deploy
+echo docker-build-deploy
 GOTO END  
 
+:TEKTON
+type tekton-pipeline-name
+GOTO END   
+
 :END
-
-
-

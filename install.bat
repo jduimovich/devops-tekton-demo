@@ -2,15 +2,7 @@
 
 @echo off 
 
- 
-set TEKTON_DEMO_NS=tekton-pipelines
-set TEKTON_DEMO_SA=tekton-dashboard
 
-set MY_PUBLIC_GIT_USER=jduimovich
-set MY_PUBLIC_GIT_TOKEN=need-this
-
-set MY_DOCKER_USER=jduimovich
-set MY_DOCKER_PW=need-this
  
 cd scripts
 rem ISTIO 
