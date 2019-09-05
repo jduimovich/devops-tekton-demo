@@ -26,6 +26,13 @@ spec:
     env:
       - name: IMG
         value: ${outputs.resources.builtImage.url}
+  - name: prime-last-built
+    image: docker.io/ubuntu
+    command: ['/bin/bash'] 
+    args: ['-c', 'echo $IMG >./git-source/last-built'] 
+    env:
+      - name: IMG
+        value: ${outputs.resources.builtImage.url}
   - name: build
     image: docker
     command:
