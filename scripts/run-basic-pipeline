@@ -3,7 +3,7 @@
 script="$0"
 script_dir="$(dirname $script)"
 script_name="$(basename $script)"
-TAG=$(date +"h%H-m%M-s%S")
+TAG=$(date +"%y%m%d%H%M%S")
 
 GIT_URL=$1 
 GIT_REPO_BASE=$(basename $GIT_URL .git )

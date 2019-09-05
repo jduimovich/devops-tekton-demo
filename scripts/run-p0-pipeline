@@ -7,7 +7,7 @@ GIT_URL=$1
 GIT_REPO_BASE=$(basename $GIT_URL .git )
 DOCKER_IMAGE=$GIT_REPO_BASE
 GIT_SRC_RES=run0-git-source-$GIT_REPO_BASE
-TAG=$(date +"h%H-m%M-s%S")
+TAG=$(date +"%y%m%d%H%M%S")
 P_REF=pipeline0
 if [ -z $2 ]
 then
