@@ -31,3 +31,4 @@ spec:
         - --dockerfile=${inputs.params.pathToDockerFile}
         - --destination=${outputs.resources.builtImage.url}
         - --context=${inputs.params.pathToContext}
+        - '--skip-tls-verify'
