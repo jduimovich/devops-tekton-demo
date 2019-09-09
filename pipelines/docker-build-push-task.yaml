@@ -23,6 +23,13 @@ spec:
       image: docker.io/ubuntu
       command: ['/bin/bash'] 
       args: ['-c', 'du -a'] 
+    - name: env-vars
+      image: docker.io/ubuntu
+      command:
+        - /bin/sh
+      args:
+        - -c 
+        - "echo D ${inputs.params.pathToDockerFile} I ${outputs.resources.builtImage.url} C ${inputs.params.pathToContext}" 
     - name: build-push-step
       image: gcr.io/kaniko-project/executor
       command:
