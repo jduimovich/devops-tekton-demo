@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: single-pass-build-deploy-pipeline
+spec:
+  resources: 
+  - name: git-source
+    type: git
+  - name: docker-image
+    type: image
+  tasks:
+  - name: single-pass-build-deploy
+    taskRef:
+      name: single-pass-build-deploy
+    resources:
+      inputs:
+      - name: git-source
+        resource: git-source
+      outputs:
+      - name: builtImage
+        resource: docker-image
