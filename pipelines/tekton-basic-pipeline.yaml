@@ -8,5 +8,10 @@ spec:
     taskRef:
       name: tekton-basic-pipeline
   - name: tekton-basic-pipeline-2
+    runAfter: [tekton-basic-pipeline]
+    taskRef:
+      name: tekton-basic-pipeline
+  - name: tekton-basic-pipeline-3
+    runAfter: [tekton-basic-pipeline-2]
     taskRef:
       name: tekton-basic-pipeline
