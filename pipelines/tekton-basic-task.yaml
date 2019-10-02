@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Task
 metadata:
-  name: tekton-basic-pipeline
+  name: tekton-basic-task
 spec:
   steps:
     - name: echo-step-1

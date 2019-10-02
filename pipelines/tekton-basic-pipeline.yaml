@@ -4,14 +4,14 @@ metadata:
   name: tekton-basic-pipeline
 spec:
   tasks:
-  - name: tekton-basic-pipeline
+  - name: task-1
     taskRef:
-      name: tekton-basic-pipeline
-  - name: tekton-basic-pipeline-2
-    runAfter: [tekton-basic-pipeline]
+      name: tekton-basic-task
+  - name: task-2
+    runAfter: [task-1]
     taskRef:
-      name: tekton-basic-pipeline
-  - name: tekton-basic-pipeline-3
-    runAfter: [tekton-basic-pipeline-2]
+      name: tekton-basic-task
+  - name: task-3
+    runAfter: [task-2]
     taskRef:
-      name: tekton-basic-pipeline
+      name: tekton-basic-task
