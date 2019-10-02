@@ -55,13 +55,6 @@ spec:
           hostPath:
             path: /var/run/docker.sock
             type: Socket
-  - name: show-image-name2
-    image: docker.io/ubuntu
-    command: ['/bin/bash'] 
-    args: ['-c', 'echo deploy-using-kubectl-task  $IMG'] 
-    env:
-      - name: IMG
-        value: ${outputs.resources.builtImage.url}
   - name: modify-yaml
     image: ubuntu
     command: ['/bin/bash']
