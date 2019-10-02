@@ -2,11 +2,18 @@
 script="$0"
 script_dir="$(dirname $script)"
 
-if [ -d pipelines ]
+if [ -z $1 ]
 then
-echo Installing pipelines contents via pipeline0
+PIPE_DIR=pipelines 
+else  
+PIPE_DIR=$1 
+fi
+
+if [ -d $PIPE_DIR ]
+then
+echo Installing pipelines contents via pipeline0 directory $PIPE_DIR
 else 
-echo This directory has no pipelines directory, exiting
+echo This directory has no $PIPE_DIR directory, exiting
 exit
 fi
 

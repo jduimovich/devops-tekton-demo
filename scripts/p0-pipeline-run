@@ -19,8 +19,6 @@ spec:
   timeout: "1h0m0s"  
   pipelineRef:
     name: P_REF
-  trigger:
-    type: manual
   resources:
     - name: git-source
       resourceRef:
