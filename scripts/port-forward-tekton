@@ -10,7 +10,16 @@ then
 else 
    echo POD is $POD in Namespace $TEKTON_DEMO_NS
 fi
-kubectl port-forward $POD -n $TEKTON_DEMO_NS 9097:9097
+
+if [ -z $1 ]
+then
+   PORT=9097
+else 
+   PORT=$1
+fi
+echo Default Port selected as $PORT
+
+kubectl port-forward $POD -n $TEKTON_DEMO_NS $PORT:9097
 
 sleep 100
 
