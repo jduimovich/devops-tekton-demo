@@ -1,2 +1,4 @@
 export TEKTON_DEMO_NS=kabanero
 export TEKTON_DEMO_SA=tekton-dashboard
+export KABANERO_DEMO_NS=kabanero
+export KABANERO_DEMO_SA=tekton-dashboard
