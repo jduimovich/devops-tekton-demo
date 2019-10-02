@@ -1,13 +1,3 @@
-#!/bin/bash
-script="$0"
-script_dir="$(dirname $script)"
+# helper for just deploy
 
-if [ -d pipelines ]
-then
-echo Installing pipelines contents via pipeline0
-else 
-echo This directory has no pipelines directory, exiting
-exit
-fi
-
-sh $script_dir/run-p0-pipeline $($script_dir/git-repo-url) config
+run-p0 deploy
