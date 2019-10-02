@@ -7,3 +7,6 @@ spec:
   - name: tekton-basic-pipeline
     taskRef:
       name: tekton-basic-pipeline
+  - name: tekton-basic-pipeline-2
+    taskRef:
+      name: tekton-basic-pipeline
