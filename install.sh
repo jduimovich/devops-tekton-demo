@@ -79,17 +79,17 @@ YAML=$(mktemp)
 curl -s $TEKTON | \
      sed "s/tekton-pipelines/$TEKTON_DEMO_NS/g" | \
      sed "s/tekton-dashboard/$TEKTON_DEMO_SA/g" > $YAML
-kubectl apply -f $YAML
+kubectl apply -f $YAML -n $TEKTON_DEMO_NS
 
 curl -s $DASH | \
      sed "s/tekton-pipelines/$TEKTON_DEMO_NS/g" | \
      sed "s/tekton-dashboard/$TEKTON_DEMO_SA/g" > $YAML
-kubectl apply -f $YAML
+kubectl apply -f $YAML -n $TEKTON_DEMO_NS
 
 curl -s $EXTEND | \
      sed "s/tekton-pipelines/$TEKTON_DEMO_NS/g" | \
      sed "s/tekton-dashboard/$TEKTON_DEMO_SA/g" > $YAML
-kubectl apply -f $YAML
+kubectl apply -f $YAML -n $TEKTON_DEMO_NS
 
 export PATH=$PATH:$(pwd)/scripts
 
