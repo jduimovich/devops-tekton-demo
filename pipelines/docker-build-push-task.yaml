@@ -16,7 +16,7 @@ spec:
         default: /workspace/git-source
   outputs:
     resources:
-      - name: builtImage
+      - name: container-name
         type: image
   steps:
     - name: inventory-files
@@ -29,13 +29,13 @@ spec:
         - /bin/sh
       args:
         - -c 
-        - "echo D ${inputs.params.pathToDockerFile} I ${outputs.resources.builtImage.url} C ${inputs.params.pathToContext}" 
+        - "echo D ${inputs.params.pathToDockerFile} I ${outputs.resources.container-name.url} C ${inputs.params.pathToContext}" 
     - name: build-push-step
       image: gcr.io/kaniko-project/executor
       command:
         - /kaniko/executor
       args:
         - --dockerfile=${inputs.params.pathToDockerFile}
-        - --destination=${outputs.resources.builtImage.url}
+        - --destination=${outputs.resources.container-name.url}
         - --context=${inputs.params.pathToContext}
         - '--skip-tls-verify'

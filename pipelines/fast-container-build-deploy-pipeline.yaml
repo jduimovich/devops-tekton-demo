@@ -17,7 +17,7 @@ spec:
       - name: git-source
         resource: git-source
       outputs:
-      - name: builtImage
+      - name: container-name
         resource: docker-image
   - name: deploy-direct
     runAfter: [fast-build]
@@ -27,5 +27,5 @@ spec:
       inputs:
       - name: git-source
         resource: git-source 
-      - name: image-out
+      - name: container-name
         resource: docker-image

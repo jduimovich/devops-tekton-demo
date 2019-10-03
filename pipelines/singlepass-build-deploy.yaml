@@ -17,5 +17,5 @@ spec:
       - name: git-source
         resource: git-source
       outputs:
-      - name: builtImage
+      - name: container-name
         resource: docker-image

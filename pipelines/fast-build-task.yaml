@@ -16,7 +16,7 @@ spec:
       default: ./git-source
   outputs:
     resources:
-      - name: builtImage
+      - name: container-name
         type: image
   steps:
   - name: show-image-name
@@ -25,7 +25,7 @@ spec:
     args: ['-c', 'echo build-push $IMG'] 
     env:
       - name: IMG
-        value: ${outputs.resources.builtImage.url}
+        value: ${outputs.resources.container-name.url}
   - name: build
     image: docker
     command:
@@ -35,7 +35,7 @@ spec:
     - '-f'
     - ${inputs.params.pathToDockerFile}
     - '-t'
-    - ${outputs.resources.builtImage.url}
+    - ${outputs.resources.container-name.url}
     - ${inputs.params.pathToContext}
     volumeMounts:
     - name: docker-socket
@@ -46,7 +46,7 @@ spec:
     - docker 
     args:
     - 'push'
-    - ${outputs.resources.builtImage.url}
+    - ${outputs.resources.container-name.url}
     volumeMounts:
     - name: docker-socket
       mountPath: /var/run/docker.sock

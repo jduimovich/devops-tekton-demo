@@ -7,7 +7,7 @@ spec:
     resources: 
     - name: git-source
       type: git
-    - name: image-out
+    - name: container-name
       type: image
   steps:
   - name: show-image-name
@@ -16,21 +16,21 @@ spec:
     args: ['-c', 'echo deploy-using-kubectl-task  $IMG'] 
     env:
       - name: IMG
-        value: ${inputs.resources.image-out.url}
+        value: ${inputs.resources.container-name.url}
   - name: modify-yaml
     image: ubuntu
     command: ['/bin/bash']
     args: ['-c', 'find ./git-source/config -type f -exec sed -i -e s!"image: PIPELINE_REPLACE:latest"!"image: ${IMG}"!g {} \;']
     env:
       - name: IMG
-        value: ${inputs.resources.image-out.url}
+        value: ${inputs.resources.container-name.url}
   - name: show-config
     image: docker.io/ubuntu
     command: ['/bin/bash'] 
     args: ['-c', 'cat ./git-source/config/*'] 
     env:
       - name: IMG
-        value: ${inputs.resources.image-out.url}
+        value: ${inputs.resources.container-name.url}
   - name: install-new
     image: lachlanevenson/k8s-kubectl
     command: ['kubectl']
@@ -48,7 +48,7 @@ spec:
       - name: REPO
         value: ${inputs.resources.git-source.url}
       - name: IMAGE
-        value: ${inputs.resources.image-out.url}
+        value: ${inputs.resources.container-name.url}
       - name: DEPLOY
         value: "/workspace/git-source/config"
 
