@@ -11,6 +11,13 @@ else
    echo POD is $POD in Namespace $TEKTON_DEMO_NS
 fi
 
+STATUS=$(kubectl get pods -n $TEKTON_DEMO_NS -l app=tekton-dashboard -o json| jq .items[0].status.phase)
+until [ $STATUS == '"Running"' ]; do 
+echo Waiting for Running, STATUS = $STATUS 
+STATUS=$(kubectl get pods -n $TEKTON_DEMO_NS -l app=tekton-dashboard -o json| jq .items[0].status.phase)
+done
+
+
 if [ -z $1 ]
 then
    PORT=9097
@@ -20,7 +27,5 @@ fi
 echo Default Port selected as $PORT
 
 kubectl port-forward $POD -n $TEKTON_DEMO_NS $PORT:9097
-
-sleep 100
 
 
