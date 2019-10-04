@@ -112,5 +112,8 @@ echo " "
 echo "Namespace for Demo: " $TEKTON_DEMO_NS 
 echo "ServiceAccount for Demo: " $TEKTON_DEMO_SA
 
-echo connect to http://localhost:9097 for tekton dashboard
+PADD=$(pwd)/scripts
+echo "Note:"
+echo 1: Add this to your path for scripts to work:  $PADD
+echo 2: Connect to http://localhost:9097 for tekton dashboard
 
