@@ -19,10 +19,10 @@ spec:
       - name: container-name
         type: image
   steps:
-  - name: show-image-name
+  - name: initialize
     image: docker.io/ubuntu
     command: ['/bin/bash'] 
-    args: ['-c', 'echo build-push $IMG'] 
+    args: ['-c', 'echo This pipeline is building $IMG'] 
     env:
       - name: IMG
         value: ${outputs.resources.container-name.url}
@@ -50,33 +50,28 @@ spec:
     volumeMounts:
     - name: docker-socket
       mountPath: /var/run/docker.sock
-      volumes:
-        - name: docker-socket
-          hostPath:
-            path: /var/run/docker.sock
-            type: Socket
-  - name: modify-yaml
+  - name: pre-deploy
     image: ubuntu
     command: ['/bin/bash']
     args: ['-c', 'find ./git-source/config -type f -exec sed -i -e s!"image: PIPELINE_REPLACE:latest"!"image: ${IMG}"!g {} \;']
     env:
       - name: IMG
-        value: ${outputs.resources.container-name.url}
-  - name: show-config
+        value: ${inputs.resources.container-name.url}
+  - name: show-deploy
     image: docker.io/ubuntu
     command: ['/bin/bash'] 
     args: ['-c', 'cat ./git-source/config/*'] 
     env:
       - name: IMG
-        value: ${outputs.resources.container-name.url}
-  - name: install-new
+        value: ${inputs.resources.container-name.url}
+  - name: deploy
     image: lachlanevenson/k8s-kubectl
     command: ['kubectl']
     args: 
     - 'apply'
     - '-f'
     - './git-source/config'
-  - name: pipeline-run-summary
+  - name: summary
     image: jduimovich/summary 
     workingDir: "/workspace/git-source/"
     command: ['bash'] 
@@ -85,9 +80,11 @@ spec:
       - name: REPO
         value: ${inputs.resources.git-source.url}
       - name: IMAGE
-        value: ${outputs.resources.container-name.url}
+        value: ${inputs.resources.container-name.url}
       - name: DEPLOY
         value: "/workspace/git-source/config"
-
-
-    
+  volumes:
+    - name: docker-socket
+      hostPath:
+        path: /var/run/docker.sock
+        type: Socket
