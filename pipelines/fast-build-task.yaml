@@ -25,7 +25,7 @@ spec:
     args: ['-c', 'echo build-push $IMG'] 
     env:
       - name: IMG
-        value: ${outputs.resources.container-name.url}
+        value: $(outputs.resources.container-name.url)
   - name: build
     image: docker
     command:
@@ -33,10 +33,10 @@ spec:
     args:
     - 'build'
     - '-f'
-    - ${inputs.params.pathToDockerFile}
+    - $(inputs.params.pathToDockerFile)
     - '-t'
-    - ${outputs.resources.container-name.url}
-    - ${inputs.params.pathToContext}
+    - $(outputs.resources.container-name.url)
+    - $(inputs.params.pathToContext)
     volumeMounts:
     - name: docker-socket
       mountPath: /var/run/docker.sock
@@ -46,7 +46,7 @@ spec:
     - docker 
     args:
     - 'push'
-    - ${outputs.resources.container-name.url}
+    - $(outputs.resources.container-name.url)
     volumeMounts:
     - name: docker-socket
       mountPath: /var/run/docker.sock

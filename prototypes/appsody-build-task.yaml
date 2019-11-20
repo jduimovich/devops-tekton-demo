@@ -34,7 +34,7 @@ spec:
       securityContext:
         privileged: true
       image: appsody/appsody-buildah
-      command: ['buildah', 'push', '--tls-verify=false', '${outputs.resources.docker-image.url}', 'docker://${outputs.resources.docker-image.url}']
+      command: ['buildah', 'push', '--tls-verify=false', '$(outputs.resources.docker-image.url)', 'docker://$(outputs.resources.docker-image.url)']
       env:
         - name: gitsource
           value: git-source
@@ -47,16 +47,16 @@ spec:
       args: ['-c', 'find /workspace/appsody-source/ -name ${YAMLFILE} -type f -exec sed -i -e s!"image: .*$"!"image: ${IMG}"!g {} \;']
       env:
         - name: IMG
-          value: ${outputs.resources.docker-image.url}
+          value: $(outputs.resources.docker-image.url)
         - name: YAMLFILE
-          value: ${inputs.params.appsody-deploy-file-name}
+          value: $(inputs.params.appsody-deploy-file-name)
     - name: install-knative
       image: lachlanevenson/k8s-kubectl
       command: ['/bin/sh']
       args: ['-c', 'find /workspace/appsody-source/ -name ${YAMLFILE} -type f|xargs kubectl apply -f']
       env:
         - name: YAMLFILE
-          value: ${inputs.params.appsody-deploy-file-name}
+          value: $(inputs.params.appsody-deploy-file-name)
 
     - name: pipeline-run-summary
       image: jduimovich/summary 
@@ -65,8 +65,8 @@ spec:
       args: ['/script.sh']
       env:
         - name: REPO
-          value: ${inputs.resources.git-source.url}
+          value: $(inputs.resources.git-source.url)
         - name: IMAGE
-          value: ${outputs.resources.docker-image.url}
+          value: $(outputs.resources.docker-image.url)
         - name: DEPLOY
-          value: ${inputs.params.appsody-deploy-file-name}
+          value: $(inputs.params.appsody-deploy-file-name)

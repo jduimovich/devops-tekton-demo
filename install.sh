@@ -65,15 +65,10 @@ fi
 
 RELEASES=https://storage.googleapis.com/tekton-releases
 
-# working lineup based on 0.5.2
-TEKTON=$RELEASES/previous/v0.5.2/release.yaml
-DASH=$RELEASES/dashboard/previous/v0.1.1/release.yaml
-EXTEND=$RELEASES/webhooks-extension/previous/v0.1.1/release.yaml
-
 # latest == uncomment these if you want master releases
-#TEKTON=$RELEASES/latest/release.yaml
-#DASH=$RELEASES/dashboard/latest/release.yaml
-#EXTEND=$RELEASES/webhooks-extension/latest/release.yaml
+TEKTON=$RELEASES/latest/release.yaml
+DASH=$RELEASES/dashboard/latest/release.yaml
+EXTEND=$RELEASES/webhooks-extension/latest/release.yaml
 
 YAML=$(mktemp)
 curl -s $TEKTON | \

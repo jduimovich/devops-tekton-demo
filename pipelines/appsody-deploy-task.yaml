@@ -13,12 +13,12 @@ spec:
     - name: print-deploy-info
       image: docker.io/ubuntu
       command: ['/bin/bash'] 
-      args: ['-c', 'echo Deploy git repo is: ${inputs.resources.git-source.url}'] 
+      args: ['-c', 'echo Deploy git repo is: $(inputs.resources.git-source.url)'] 
 
     - name: print-deploy-yaml
       image: docker.io/ubuntu
       command: ['/bin/bash'] 
-      args: ['-c', 'echo Deploy Yaml is: ${inputs.params.appsody-deploy-file-name}'] 
+      args: ['-c', 'echo Deploy Yaml is: $(inputs.params.appsody-deploy-file-name)'] 
 
     - name: install-appsody-application
       image: lachlanevenson/k8s-kubectl
@@ -26,7 +26,7 @@ spec:
       args: ['-c', 'find /workspace/git-source/ -name ${YAMLFILE} -type f|xargs kubectl apply -f']
       env:
         - name: YAMLFILE
-          value: ${inputs.params.appsody-deploy-file-name}
+          value: $(inputs.params.appsody-deploy-file-name)
 
     - name: pipeline-run-summary
       image: jduimovich/summary 
@@ -35,6 +35,6 @@ spec:
       args: ['/script.sh']
       env:
         - name: REPO
-          value: ${inputs.resources.git-source.url}
+          value: $(inputs.resources.git-source.url)
         - name: DEPLOY
-          value: ${inputs.params.appsody-deploy-file-name}
+          value: $(inputs.params.appsody-deploy-file-name)

@@ -1,0 +1,17 @@
+
+DOCKERHUB_USERNAME=$MY_DOCKER_USER
+DOCKERHUB_PASSWORD=$MY_DOCKER_PW
+DASHBOARD_INSTALL_NS=$TEKTON_DEMO_NS
+
+DOCKERUSER=$(echo -n ${DOCKERHUB_USERNAME} | base64 )
+DOCKERPASS=$(echo -n ${DOCKERHUB_PASSWORD} | base64)
+
+echo $DOCKERHUB_USERNAME
+echo $DOCKERHUB_PASSWORD
+echo $DASHBOARD_INSTALL_NS
+
+echo $DOCKERUSER
+echo $DOCKERPASS
+
+post_data='{"apiVersion":"v1","data":{"password":"'"${DOCKERPASS}"'","username":"'"${DOCKERUSER}"'"},"kind":"Secret","metadata":{"annotations":{"tekton.dev/docker-0":"https://index.docker.io/v1/"},"labels":{"serviceAccount":"tekton-dashboard"},"name":"docker-push","namespace":""},"type":"kubernetes.io/basic-auth"}'
+curl -X POST --header Content-Type:application/json -d "$post_data" http://localhost:9097/proxy/api/v1/namespaces/${DASHBOARD_INSTALL_NS}/secrets/

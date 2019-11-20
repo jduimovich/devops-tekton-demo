@@ -28,6 +28,6 @@ spec:
     command:
       - /kaniko/executor
     args:
-      - --dockerfile=${inputs.params.pathToDockerFile}
-      - --destination=${outputs.resources.docker-image.url}
-      - --context=${inputs.params.pathToContext}
+      - --dockerfile=$(inputs.params.pathToDockerFile)
+      - --destination=$(outputs.resources.docker-image.url)
+      - --context=$(inputs.params.pathToContext)
