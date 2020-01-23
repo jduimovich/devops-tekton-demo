@@ -67,8 +67,7 @@ RELEASES=https://storage.googleapis.com/tekton-releases
 
 # latest == uncomment these if you want master releases
 TEKTON=$RELEASES/latest/release.yaml
-DASH=$RELEASES/dashboard/latest/release.yaml
-EXTEND=$RELEASES/webhooks-extension/latest/release.yaml
+DASH=$RELEASES/dashboard/latest/release.yaml 
 
 YAML=$(mktemp)
 curl -s $TEKTON | \
@@ -77,11 +76,6 @@ curl -s $TEKTON | \
 kubectl apply -f $YAML -n $TEKTON_DEMO_NS
 
 curl -s $DASH | \
-     sed "s/tekton-pipelines/$TEKTON_DEMO_NS/g" | \
-     sed "s/tekton-dashboard/$TEKTON_DEMO_SA/g" > $YAML
-kubectl apply -f $YAML -n $TEKTON_DEMO_NS
-
-curl -s $EXTEND | \
      sed "s/tekton-pipelines/$TEKTON_DEMO_NS/g" | \
      sed "s/tekton-dashboard/$TEKTON_DEMO_SA/g" > $YAML
 kubectl apply -f $YAML -n $TEKTON_DEMO_NS
@@ -97,9 +91,10 @@ else
     echo See port-forward-tekton.log for port forwarding information
     
     sh scripts/port-forward-tekton  > port-forward-tekton.log &
+    sleep 10
 fi 
 
-sh scripts/install-secret
+bash scripts/install-secret
 
 echo "-----------------------"
 echo "Tekton Demo Installed "
