@@ -91,7 +91,7 @@ else
     echo See port-forward-tekton.log for port forwarding information
     
     sh scripts/port-forward-tekton  > port-forward-tekton.log &
-    sleep 10
+
 fi 
 
 bash scripts/install-secret
