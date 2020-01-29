@@ -1,4 +1,5 @@
 port-forward-tekton.log
 scripts/istio-1.2.2
+scripts/istio-1.4.3
 pr.tmp
 
