@@ -1,0 +1,81 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"tekton.dev/v1alpha1","kind":"Pipeline","metadata":{"annotations":{},"name":"pipeline0","namespace":"kabanero"},"spec":{"params":[{"default":"/workspace/git-source","description":"The path to the resource files to apply","name":"pathToResourceFiles","type":"string"},{"default":".","description":"The directory from which resources are to be applied","name":"apply-directory","type":"string"},{"default":"kabanero","description":"The namespace in which to create the resources being imported","name":"target-namespace","type":"string"}],"resources":[{"name":"git-source","type":"git"}],"tasks":[{"name":"pipeline0-task","params":[{"name":"pathToResourceFiles","value":"$(params.pathToResourceFiles)"},{"name":"apply-directory","value":"$(params.apply-directory)"},{"name":"target-namespace","value":"$(params.target-namespace)"}],"resources":{"inputs":[{"name":"git-source","resource":"git-source"}]},"taskRef":{"name":"pipeline0-task"}}]}}
+  creationTimestamp: 2020-01-31T15:01:39Z
+  generation: 1
+  labels:
+    app: tekton-app
+    gitOrg: jduimovich
+    gitRepo: devops-tekton-demo.git.git
+    gitServer: github.com
+    tekton.dev/pipeline: pipeline0
+  name: pipeline0-run-1580482899540
+  namespace: kabanero
+  resourceVersion: "3195"
+  selfLink: /apis/tekton.dev/v1alpha1/namespaces/kabanero/pipelineruns/pipeline0-run-1580482899540
+  uid: 6132151d-df37-4846-a335-1e09825a68a6
+spec:
+  params:
+  - name: apply-directory
+    value: pipelines
+  - name: target-namespace
+    value: kabanero
+  pipelineRef:
+    name: pipeline0
+  resources:
+  - name: git-source
+    resourceRef:
+      name: git-sourceql98m
+  serviceAccountName: tekton-dashboard
+  timeout: 1h0m0s
+status:
+  completionTime: 2020-01-31T15:01:59Z
+  conditions:
+  - lastTransitionTime: 2020-01-31T15:01:59Z
+    message: All Tasks have completed executing
+    reason: Succeeded
+    status: "True"
+    type: Succeeded
+  startTime: 2020-01-31T15:01:39Z
+  taskRuns:
+    pipeline0-run-1580482899540-pipeline0-task-g8qmw:
+      pipelineTaskName: pipeline0-task
+      status:
+        completionTime: 2020-01-31T15:01:59Z
+        conditions:
+        - lastTransitionTime: 2020-01-31T15:01:59Z
+          message: All Steps have completed executing
+          reason: Succeeded
+          status: "True"
+          type: Succeeded
+        podName: pipeline0-run-1580482899540-pipeline0-task-g8qmw-pod-kxw6n
+        resourcesResult:
+        - digest: ""
+          key: commit
+          name: ""
+          resourceRef: {}
+          value: 72bf1bca98540aaaa790d07917b295b9bedb5cd6
+        startTime: 2020-01-31T15:01:39Z
+        steps:
+        - container: step-kubectl-apply
+          imageID: docker-pullable://lachlanevenson/k8s-kubectl@sha256:6944392a5ab6f762addbe3b3d8fcca7f47abdc44ff6076a6d18dc08510597e30
+          name: kubectl-apply
+          terminated:
+            containerID: docker://28f1cfd65281d584eb3afb68ff5772a8eb7106542326ad2e4d12a3769ae27bda
+            exitCode: 0
+            finishedAt: 2020-01-31T15:01:58Z
+            reason: Completed
+            startedAt: 2020-01-31T15:01:56Z
+        - container: step-git-source-git-sourceql98m-w2gjg
+          imageID: docker-pullable://gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/git-init@sha256:18ffa2bfc14b1fa6d39f62271beacf6bbc38e7cd2e255184dec477c2936270bc
+          name: git-source-git-sourceql98m-w2gjg
+          terminated:
+            containerID: docker://db482defd59a0a48733c3df263f688e2bfec7d52dd8a49e218b482c9c12c5c7f
+            exitCode: 0
+            finishedAt: 2020-01-31T15:01:55Z
+            message: '[{"name":"","digest":"","key":"commit","value":"72bf1bca98540aaaa790d07917b295b9bedb5cd6","resourceRef":{}}]'
+            reason: Completed
+            startedAt: 2020-01-31T15:01:54Z

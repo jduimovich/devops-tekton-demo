@@ -50,7 +50,7 @@ kubectl get pods -n istio-system | grep istio > /dev/null
 if [ $? -eq 0 ] ; then
     echo  "istio-system  already installed"
 else  
-    (cd scripts; sh ./install_istio.sh 1.2.2)
+    (cd scripts; sh ./install_istio.sh 1.4.3)
 fi
 
 # KNATIVE 
@@ -58,7 +58,7 @@ kubectl get namespaces | grep knative > /dev/null
 if [ $? -eq 0 ] ; then
     echo  "knative already installed"
 else 
-    (cd scripts; sh ./install_knative.sh v0.6.0)
+    (cd scripts; sh ./install_knative.sh v0.11.0)
 fi
 
 # TEKTON 

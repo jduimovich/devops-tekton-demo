@@ -64,5 +64,3 @@ function wait_for_ready_pods() {
 }
 
 install_knative_serving $1
-install_knative_eventing $1
-install_knative_eventing_sources $1
