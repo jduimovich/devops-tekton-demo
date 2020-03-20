@@ -37,6 +37,7 @@ fi
 }
 
 verify_cmd kubectl
+verify_cmd yq
 verify_cmd jq
 verify_cmd curl
 
