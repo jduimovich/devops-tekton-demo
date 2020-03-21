@@ -66,8 +66,8 @@ fi
 RELEASES=https://storage.googleapis.com/tekton-releases
 
 # latest == uncomment these if you want master releases
-TEKTON=$RELEASES/latest/release.yaml
-DASH=$RELEASES/dashboard/latest/release.yaml 
+TEKTON=$RELEASES/latest/release.yaml 
+DASH=$RELEASES/dashboard/latest/tekton-dashboard-release.yaml
 
 YAML=$(mktemp)
 curl -s $TEKTON | \

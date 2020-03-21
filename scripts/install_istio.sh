@@ -16,6 +16,9 @@ curl -L https://git.io/getLatestIstio | sh -
 echo Downloading  istio-${ISTIO_VERSION} .
 fi
 
-export PATH="$PATH:/Users/johnduimovich/dev/istio/istio-${ISTIO_VERSION}/bin"
-istioctl manifest apply --set profile=demo
+
+PWD=$(pwd)
+CMD=$PWD/istio-${ISTIO_VERSION}/bin/istioctl
+$CMD manifest apply --set profile=demo
+ 
 
